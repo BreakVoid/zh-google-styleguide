@@ -37,3 +37,5 @@ context = {
 }
 
 html_context = context
+
+a = 1
