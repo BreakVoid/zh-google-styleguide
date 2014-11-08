@@ -1,0 +1,491 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Javascript语言规则 &mdash; Google 开源项目风格指南</title>
+    
+    <link rel="stylesheet" href="../_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Google 开源项目风格指南" href="../index.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../index.html">
+          <span>Google 开源项目风格指南</span></a></h1>
+        <h2 class="heading"><span>Javascript语言规则</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        <a class="uplink" href="../contents.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="javascript">
+<h1>Javascript语言规则</h1>
+<div class="section" id="var">
+<h2>var关键字</h2>
+<p>总是用 <tt class="docutils literal"><span class="pre">var</span></tt> 关键字定义变量。</p>
+<div class="section" id="id1">
+<h3>描述</h3>
+<p>如果不显式使用 <tt class="docutils literal"><span class="pre">var</span></tt> 关键字定义变量，变量会进入到全局上下文中，可能会和已有的变量发生冲突。另外，如果不使用var声明，很难说变量存在的作用域是哪个（可能在局部作用域里，也可能在document或者window上）。所以，要一直使用 <tt class="docutils literal"><span class="pre">var</span></tt> 关键字定义变量。</p>
+</div>
+</div>
+<div class="section" id="id2">
+<h2>常量</h2>
+<ul class="simple">
+<li>使用字母全部大写（如 <tt class="docutils literal"><span class="pre">NAMES_LIKE_THIS</span></tt> ）的方式命名</li>
+<li>可以使用 <tt class="docutils literal"><span class="pre">&#64;const</span></tt> 来标记一个常量 <em>指针</em> （指向变量或属性，自身不可变）</li>
+<li>由于IE的兼容问题，不要使用 <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/const?redirectlocale=en-US&amp;redirectslug=JavaScript%2FReference%2FStatements%2Fconst">const关键字</a></li>
+</ul>
+<div class="section" id="id3">
+<h3>描述</h3>
+<div class="section" id="id4">
+<h4>常量值</h4>
+<p>如果一个值是恒定的，它命名中的字母要全部大写（如 <tt class="docutils literal"><span class="pre">CONSTANT_VALUE_CASE</span></tt> ）。字母全部大写意味着这个值不可以被改写。</p>
+<p>原始类型（ <tt class="docutils literal"><span class="pre">number</span></tt> 、 <tt class="docutils literal"><span class="pre">string</span></tt> 、 <tt class="docutils literal"><span class="pre">boolean</span></tt> ）是常量值。</p>
+<p>对象的表现会更主观一些，当它们没有暴露出变化的时候，应该认为它们是常量。但是这个不是由编译器决定的。</p>
+</div>
+<div class="section" id="id5">
+<h4>常量指针（变量和属性）</h4>
+<p>用 <tt class="docutils literal"><span class="pre">&#64;const</span></tt> 注释的变量和属性意味着它是不能更改的。使用const关键字可以保证在编译的时候保持一致。使用 <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/const?redirectlocale=en-US&amp;redirectslug=JavaScript%2FReference%2FStatements%2Fconst">const</a> 效果相同，但是由于IE的兼容问题，我们不使用const关键字。</p>
+<p>另外，不应该修改用 <tt class="docutils literal"><span class="pre">&#64;const</span></tt> 注释的方法。</p>
+</div>
+<div class="section" id="id7">
+<h4>例子</h4>
+<p>注意， <tt class="docutils literal"><span class="pre">&#64;const</span></tt> 不一定是常量值，但命名类似 <tt class="docutils literal"><span class="pre">CONSTANT_VALUE_CASE</span></tt> 的 <em>一定</em> 是常量指针。</p>
+<div class="highlight-python"><div class="highlight"><pre>/**
+* 以毫秒为单位的超时时长
+* @type {number}
+*/
+goog.example.TIMEOUT_IN_MILLISECONDS = 60;
+</pre></div>
+</div>
+<p>1分钟60秒永远也不会改变，这是个常量。全部大写的命名意味其为常量值，所以它不能被重写。
+开源的编译器允许这个符号被重写，这是因为 <em>没有</em> <tt class="docutils literal"><span class="pre">&#64;const</span></tt> 标记。</p>
+<div class="highlight-python"><div class="highlight"><pre>/**
+* Map of URL to response string.
+* @const
+*/
+MyClass.fetchedUrlCache_ = new goog.structs.Map();
+</pre></div>
+</div>
+<p>在这个例子中，指针没有变过，但是值却是可以变化的，所以这里用了驼峰式的命名，而不是全部大写的命名。</p>
+</div>
+</div>
+</div>
+<div class="section" id="id8">
+<h2>分号</h2>
+<p>一定要使用分号。</p>
+<p>依靠语句间隐式的分割，可能会造成细微的调试的问题，千万不要这样做。</p>
+<p>很多时候不写分号是很危险的：</p>
+<div class="highlight-python"><div class="highlight"><pre>// 1.
+MyClass.prototype.myMethod = function() {
+    return 42;
+}  // 这里没有分号.
+
+(function() {
+    // 一些局部作用域中的初始化代码
+})();
+
+var x = {
+    &#39;i&#39;: 1,
+    &#39;j&#39;: 2
+}  //没有分号.
+
+// 2.  试着在IE和firefox下做一样的事情.
+//没人会这样写代码，别管他.
+[normalVersion, ffVersion][isIE]();
+
+var THINGS_TO_EAT = [apples, oysters, sprayOnCheese]  //这里没有分号
+
+// 3. 条件语句
+-1 == resultOfOperation() || die();
+</pre></div>
+</div>
+<div class="section" id="id9">
+<h3>发生了什么？</h3>
+<ol class="arabic simple">
+<li>js错误。返回42的函数运行了，因为后面有一对括号，而且传入的参数是一个方法，然后返回的42被调用，导致出错了。</li>
+<li>你可能会得到一个“no sush property in undefined”的错误，因为在执行的时候，解释器将会尝试执行 <tt class="docutils literal"><span class="pre">x[normalVersion,</span> <span class="pre">ffVersion][isIE]()</span></tt> 这个方法。</li>
+<li><tt class="docutils literal"><span class="pre">die</span></tt> 这个方法只有在 <tt class="docutils literal"><span class="pre">resultOfOperation()</span></tt> 是 <tt class="docutils literal"><span class="pre">NaN</span></tt> 的时候执行，并且 <tt class="docutils literal"><span class="pre">THINGS_TO_EAT</span></tt> 将会被赋值为 <tt class="docutils literal"><span class="pre">die()</span></tt> 的结果。</li>
+</ol>
+</div>
+<div class="section" id="id10">
+<h3>为什么？</h3>
+<p>js语句要求以分号结尾，除非能够正确地推断分号的位置。在这个例子当中，函数声明、对象和数组字面量被写在了一个语句当中。右括号（&#8221;)&#8221;、&#8221;}&#8221;、&#8221;]&#8221;）不足以证明这条语句已经结束了，如果下一个字符是运算符或者&#8221;(&#8220;、&#8221;{&#8220;、&#8221;[&#8220;，js将不会结束语句。</p>
+<p>这个错误让人震惊，所以一定要确保用分号结束语句。</p>
+</div>
+<div class="section" id="id11">
+<h3>澄清：分号和函数</h3>
+<p>函数表达式后面要分号结束，但是函数声明就不需要。例如：</p>
+<div class="highlight-python"><div class="highlight"><pre>var foo = function() {
+    return true;
+};  // 这里要分号
+
+function foo() {
+    return true;
+}  // 这里不用分号
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id12">
+<h2>嵌套函数</h2>
+<p>可以使用。</p>
+<p>嵌套函数非常有用，比如在创建持续任务或者隐藏工具方法的时候。可以放心的使用。</p>
+</div>
+<div class="section" id="id13">
+<h2>块内函数声明</h2>
+<p>不要使用块内函数声明。</p>
+<p>不要这样做：</p>
+<div class="highlight-python"><div class="highlight"><pre>if (x) {
+    function foo() {}
+}
+</pre></div>
+</div>
+<p>虽然大多数脚本引擎支持功能区块内声明，但ECMAScript并未认可（见 <a class="reference external" href="http://www.ecma-international.org/publications/standards/Ecma-262.htm">ECMA-262</a> ，第13条和第14）。若与他人的及EcmaScript所建议的不一致，即可视为不好的实现方式。ECMAScript只允许函数声明语句列表, 在根语句列表脚本或者函数。相反，使用一个变量初始化函数表达式在块内定义一个函数块：</p>
+<div class="highlight-python"><div class="highlight"><pre>if (x) {
+    var foo = function() {}
+}
+</pre></div>
+</div>
+</div>
+<div class="section" id="id14">
+<h2>异常</h2>
+<p>可以抛出异常。</p>
+<p>如果你做一些比较复杂的项目你基本上无法避免异常，比如使用一个应用程序开发框架。可以大胆试一试。</p>
+</div>
+<div class="section" id="id15">
+<h2>自定义异常</h2>
+<p>可以自定义异常。</p>
+<p>如果没有自定义异常，返回的错误信息来自一个有返回值的函数是难处理的，是不雅的。坏的解决方案包括传递引用的类型来保存错误信息或总是返回有一个潜在的错误成员的对象。这些基本上为原始的异常处理hack。在适当的时候使用自定义的异常。</p>
+</div>
+<div class="section" id="id16">
+<h2>标准功能</h2>
+<p>总是优先于非标准功能。</p>
+<p>为了最大的可移植性和兼容性，总是使用标准功能而不是非标准功能（例如，采用 <cite>string.charAt(3)</cite> 而非 <cite>string[3]</cite> ，用DOM的功能访问元素而不是使用特定于一个具体应用的简写）。</p>
+</div>
+<div class="section" id="id17">
+<h2>原始类型的包装对象</h2>
+<p>没有理由使用原始类型的包装对象，更何况他们是危险的：</p>
+<div class="highlight-python"><div class="highlight"><pre>var x = new Boolean(false);
+if (x) {
+    alert(&#39;hi&#39;);  //显示“hi”。
+}
+</pre></div>
+</div>
+<p>不要这样做！</p>
+<p>然而类型转换是可以的。</p>
+<div class="highlight-python"><div class="highlight"><pre>var x = Boolean(0);
+if (x) {
+    alert(&#39;hi&#39;);  //永远都不显示。
+}
+typeof Boolean(0) == &#39;boolean&#39;;
+typeof new Boolean(0) == &#39;object&#39;;
+</pre></div>
+</div>
+<p>这是非常有用的进行数字、字符串和布尔值转换的方式。</p>
+</div>
+<div class="section" id="id18">
+<h2>多重的原型继承</h2>
+<p>不可取。</p>
+<p>多重原型继承是Javascript实现继承的方式。如果你有一个以用户定义的class B作为原型的用户自定义class D，则得到多重原型继承。这样的继承出现容易但难以正确创造！</p>
+<p>出于这个原因，最好是使用 <a class="reference external" href="https://developers.google.com/closure/library/?csw=1">Closure库</a> 中的 <tt class="docutils literal"><span class="pre">goog.inherits()</span></tt> 或类似的东西。</p>
+<div class="highlight-python"><div class="highlight"><pre>function D() {
+    goog.base(this)
+}
+goog.inherits( D, B );
+
+D.prototype.method =function() {
+    ...
+};
+</pre></div>
+</div>
+</div>
+<div class="section" id="id19">
+<h2>方法和属性定义</h2>
+<p><tt class="docutils literal"><span class="pre">/**构造函数*/</span> <span class="pre">function</span> <span class="pre">SomeConstructor()</span> <span class="pre">{</span> <span class="pre">this.someProperty</span> <span class="pre">=</span> <span class="pre">1;</span> <span class="pre">}</span> <span class="pre">Foo.prototype.someMethod</span> <span class="pre">=</span> <span class="pre">function()</span> <span class="pre">{</span> <span class="pre">...</span> <span class="pre">};</span></tt></p>
+<p>虽然有多种使用“new”关键词来创建对象方法和属性的途径，首选的创建方法的途径是：</p>
+<div class="highlight-python"><div class="highlight"><pre>Foo.prototype.bar = function() {
+    /* ... */
+};
+</pre></div>
+</div>
+<p>其他特性的首选创建方式是在构造函数中初始化字段：</p>
+<div class="highlight-python"><div class="highlight"><pre>/** @constructor */
+function Foo() {
+    this.bar = value;
+}
+</pre></div>
+</div>
+<div class="section" id="id20">
+<h3>为什么？</h3>
+<p>当前的JavaScript引擎优化基于一个对象的“形状”， <a class="reference external" href="https://developers.google.com/v8/design#prop_access">给对象添加一个属性（包括覆盖原型设置的值）改变了形式，会降低性能</a> 。</p>
+</div>
+</div>
+<div class="section" id="id22">
+<h2>删除</h2>
+<p>请使用 <tt class="docutils literal"><span class="pre">this.foo</span> <span class="pre">=</span> <span class="pre">null</span></tt> 。</p>
+<div class="highlight-python"><div class="highlight"><pre>o.prototype.dispose = function() {
+    this.property_ = null;
+};
+</pre></div>
+</div>
+<p>而不是：</p>
+<div class="highlight-python"><div class="highlight"><pre>Foo.prototype.dispose = function() {
+    delete his.property_;
+};
+</pre></div>
+</div>
+<p>在现代的JavaScript引擎中，改变一个对象属性的数量比重新分配值慢得多。应该避免删除关键字，除非有必要从一个对象的迭代的关键字列表删除一个属性，或改变 <tt class="docutils literal"><span class="pre">if</span> <span class="pre">(key</span> <span class="pre">in</span> <span class="pre">obj)</span></tt> 结果。</p>
+</div>
+<div class="section" id="id23">
+<h2>闭包</h2>
+<p>可以使用，但是要小心。</p>
+<p>创建闭包可能是JS最有用的和经常被忽视的功能。在 <a class="reference external" href="http://jibbering.com/faq/notes/closures/">这里</a> 很好地描述说明了闭包的工作。</p>
+<p>要记住的一件事情，一个闭包的指针指向包含它的范围。因此，附加一个闭包的DOM元素，可以创建一个循环引用，所以，内存会泄漏。例如，下面的代码：</p>
+<div class="highlight-python"><div class="highlight"><pre>function foo(element, a, b) {
+    element.onclick = function() { /* 使用 a 和 b */ };
+}
+</pre></div>
+</div>
+<p>闭包能保持元素a和b的引用即使它从未使用。因为元素还保持对闭包的一个引用，我们有一个循环引用，不会被垃圾收集清理。在这些情况下，代码的结构可以如下：</p>
+<div class="highlight-python"><div class="highlight"><pre>function foo(element, a, b) {
+    element.onclick = bar(a, b);
+}
+
+function bar(a, b) {
+    return function() { /* 使用 a 和 b */ }
+}
+</pre></div>
+</div>
+</div>
+<div class="section" id="eval">
+<h2>eval()函数</h2>
+<p>只用于反序列化（如评估RPC响应）。</p>
+<p>若用于 <tt class="docutils literal"><span class="pre">eval()</span></tt> 的字符串含有用户输入，则 <tt class="docutils literal"><span class="pre">eval()</span></tt> 会造成混乱的语义，使用它有风险。通常有一个更好
+更清晰、更安全的方式来编写你的代码，所以一般是不会允许其使用的。然而，eval相对比非eval使反序列化更容易，因此它的使用是可以接受的（例如评估RPC响应）。</p>
+<p>反序列化是将一系列字节存到内存中的数据结构转化过程。例如，你可能会写的对象是：</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">users</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="n">name</span><span class="p">:</span> <span class="s">&#39;Eric&#39;</span><span class="p">,</span>
+        <span class="nb">id</span><span class="p">:</span> <span class="mi">37824</span><span class="p">,</span>
+        <span class="n">email</span><span class="p">:</span> <span class="s">&#39;jellyvore@myway.com&#39;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="n">name</span><span class="p">:</span> <span class="s">&#39;xtof&#39;</span><span class="p">,</span>
+        <span class="nb">id</span><span class="p">:</span> <span class="mi">31337</span><span class="p">,</span>
+        <span class="n">email</span><span class="p">:</span> <span class="s">&#39;b4d455h4x0r@google.com&#39;</span>
+    <span class="p">},</span>
+    <span class="o">...</span>
+<span class="p">];</span>
+</pre></div>
+</div>
+<p>将这些数据读入内存跟得出文件的字符串表示形式一样容易。</p>
+<p>同样， <tt class="docutils literal"><span class="pre">eval()</span></tt> 函数可以简化解码RPC的返回值。例如，您可以使用 <tt class="docutils literal"><span class="pre">XMLHttpRequest</span></tt> 生成RPC，在响应时服务器返回JavaScript：</p>
+<div class="highlight-python"><div class="highlight"><pre>var userOnline = false;
+var user = &#39;nusrat&#39;;
+var xmlhttp = new XMLHttpRequest();
+xmlhttp.open(&#39;GET&#39;, &#39;http://chat.google.com/isUserOnline?user=&#39; + user, false);
+xmlhttp.send(&#39;&#39;);
+// 服务器返回：
+// userOnline = true;
+if (xmlhttp.status == 200) {
+      eval(xmlhttp.responseText);
+}
+// userOnline 现在为 true
+</pre></div>
+</div>
+</div>
+<div class="section" id="with">
+<h2>with() {}</h2>
+<p>不建议使用。</p>
+<p>使用 <tt class="docutils literal"><span class="pre">with</span></tt> 会影响程序的语义。因为 <tt class="docutils literal"><span class="pre">with</span></tt> 的目标对象可能会含有和局部变量冲突的属性，使你程序的语义发生很大的变化。例如，这是做什么用？</p>
+<div class="highlight-python"><div class="highlight"><pre>with (foo) {
+    var x = 3;
+    return x;
+}
+</pre></div>
+</div>
+<p>答案：什么都有可能。局部变量 <tt class="docutils literal"><span class="pre">x</span></tt> 可能会被 <tt class="docutils literal"><span class="pre">foo</span></tt> 的一个属性覆盖，它甚至可能有setter方法，在此情况下将其赋值为3可能会执行很多其他代码。不要使用 <tt class="docutils literal"><span class="pre">with</span></tt> 。</p>
+</div>
+<div class="section" id="this">
+<h2>this</h2>
+<p>只在构造函数对象、方法，和创建闭包的时候使用。</p>
+<p><tt class="docutils literal"><span class="pre">this</span></tt> 的语义可能会非常诡异。有时它指向全局对象（很多时候）、调用者的作用域链（在 <tt class="docutils literal"><span class="pre">eval</span></tt> 里）、DOM树的一个节点（当使用HTML属性来做为事件句柄时）、新创建的对象（在一个构造函数中）、或者其他的对象（如果函数被 <tt class="docutils literal"><span class="pre">call()</span></tt> 或 <tt class="docutils literal"><span class="pre">apply()</span></tt> 方式调用）。</p>
+<p>正因为 <tt class="docutils literal"><span class="pre">this</span></tt> 很容易被弄错，故将其使用限制在以下必须的地方：</p>
+<ul class="simple">
+<li>在构造函数中</li>
+<li>在对象的方法中（包括闭包的创建）</li>
+</ul>
+</div>
+<div class="section" id="for-in">
+<h2>for-in 循环</h2>
+<p>只使用在对象、映射、哈希的键值迭代中。</p>
+<p><tt class="docutils literal"><span class="pre">for-in</span></tt> 循环经常被不正确的用在元素数组的循环中。由于并不是从 <tt class="docutils literal"><span class="pre">0</span></tt> 到 <tt class="docutils literal"><span class="pre">length-1</span></tt> 进行循环，而是遍历对象中和它原型链上的所有的键，所以很容易出错。这里有一些失败的例子：</p>
+<div class="highlight-python"><div class="highlight"><pre>function printArray(arr) {
+    for (var key in arr) {
+        print(arr[key]);
+    }
+}
+
+printArray([0,1,2,3]);  //这样可以
+
+var a = new Array(10);
+printArray(a);  //这样不行
+
+a = document.getElementsByTagName(&#39;*&#39;);
+printArray(a);  //这样不行
+
+a = [0,1,2,3];
+a.buhu = &#39;wine&#39;;
+printArray(a);  //这样不行
+
+a = new Array;
+a[3] = 3;
+printArray(a);  //这样不行
+</pre></div>
+</div>
+<p>在数组循环时常用的一般方式：</p>
+<div class="highlight-python"><div class="highlight"><pre>function printArray(arr) {
+    var l = arr.length;
+    for (var i = 0; i &lt; l; i++) {
+        print(arr[i]);
+    }
+}
+</pre></div>
+</div>
+</div>
+<div class="section" id="id25">
+<h2>关联数组</h2>
+<p>不要将映射，哈希，关联数组当作一般数组来使用。</p>
+<p>不允许使用关联数组……确切的说在数组，你不可以使用非数字的索引。如果你需要一个映射或者哈希，在这种情况下你应该使用对象来代替数组，因为在功能上你真正需要的是对象的特性而不是数组的。</p>
+<p>数组仅仅是用来拓展对象的（像在JS中你曾经使用过的 <tt class="docutils literal"><span class="pre">Date</span></tt> 、 <tt class="docutils literal"><span class="pre">RegExp</span></tt> 和 <tt class="docutils literal"><span class="pre">String</span></tt> 对象一样的）。</p>
+</div>
+<div class="section" id="id26">
+<h2>多行的字符串字面量</h2>
+<p>不要使用。</p>
+<p>不要这样做：</p>
+<div class="highlight-python"><div class="highlight"><pre>var myString = &#39;A rather long string of English text, an error message \
+              actually that just keeps going and going -- an error \
+              message to make the Energizer bunny blush (right through \
+              those Schwarzenegger shades)! Where was I? Oh yes, \
+              you\&#39;ve got an error and all the extraneous whitespace is \
+              just gravy.  Have a nice day.&#39;;
+</pre></div>
+</div>
+<p>在编译时每一行头部的空白符不会被安全地去除掉；斜线后的空格也会导致棘手的问题；虽然大部分脚本引擎都会支持，但是它不是ECMAScript规范的一部分。</p>
+<p>使用字符串连接来代替：</p>
+<div class="highlight-python"><div class="highlight"><pre>var myString = &#39;A rather long string of English text, an error message &#39; +
+   &#39;actually that just keeps going and going -- an error &#39; +
+   &#39;message to make the Energizer bunny blush (right through &#39; +
+   &#39;those Schwarzenegger shades)! Where was I? Oh yes, &#39; +
+   &#39;you\&#39;ve got an error and all the extraneous whitespace is &#39; +
+   &#39;just gravy.  Have a nice day.&#39;;
+</pre></div>
+</div>
+</div>
+<div class="section" id="id27">
+<h2>数组和对象字面量</h2>
+<p>建议使用。</p>
+<p>使用数组和对象字面量来代替数组和对象构造函数。</p>
+<p>数组构造函数容易在参数上出错。</p>
+<div class="highlight-python"><div class="highlight"><pre>// 长度为3
+var a1 = new Array(x1, x2, x3);
+
+// 长度为 2
+var a2 = new Array(x1, x2);
+
+// If x1 is a number and it is a natural number the length will be x1.
+// If x1 is a number but not a natural number this will throw an exception.
+// Otherwise the array will have one element with x1 as its value.
+var a3 = new Array(x1);
+
+// 长度为0
+var a4 = new Array();
+</pre></div>
+</div>
+<p>由此，如果有人将代码从2个参数变成了一个参数，那么这个数组就会有一个错误的长度。</p>
+<p>为了避免这种怪异的情况，永远使用可读性更好的数组字面量。</p>
+<div class="highlight-python"><div class="highlight"><pre>var a = [x1, x2, x3];
+var a2 = [x1, x2];
+var a3 = [x1];
+var a4 = [];
+</pre></div>
+</div>
+<p>对象构造函数虽然没有相同的问题，但是对于可读性和一致性，还是应该使用对象字面量。</p>
+<div class="highlight-python"><div class="highlight"><pre>var o = new Object();
+
+var o2 = new Object();
+o2.a = 0;
+o2.b = 1;
+o2.c = 2;
+o2[&#39;strange key&#39;] = 3;
+</pre></div>
+</div>
+<p>应该写成：</p>
+<div class="highlight-python"><div class="highlight"><pre>var o = {};
+
+var o2 = {
+    a: 0,
+    b: 1,
+    c: 2,
+    &#39;strange key&#39;: 3
+};
+</pre></div>
+</div>
+</div>
+<div class="section" id="id28">
+<h2>修改内置对象原型</h2>
+<p>不建议。</p>
+<p>强烈禁止修改如 <tt class="docutils literal"><span class="pre">Object.prototype</span></tt> 和 <tt class="docutils literal"><span class="pre">Array.prototype</span></tt> 等对象的原型。修改其他内置原型如 <tt class="docutils literal"><span class="pre">Function.prototype</span></tt> 危险性较小，但在生产环境中还是会引发一些难以调试的问题，也应当避免。</p>
+</div>
+<div class="section" id="internet-explorer">
+<h2>Internet Explorer中的条件注释</h2>
+<p>不要使用。</p>
+<p>不要这样做：</p>
+<div class="highlight-python"><div class="highlight"><pre>var f = function () {
+    /*@cc_on if (@_jscript) { return 2* @*/  3; /*@ } @*/
+};
+</pre></div>
+</div>
+<p>条件注释会在运行时改变JavaScript语法树，阻碍自动化工具。</p>
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        <a class="uplink" href="../contents.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright .
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

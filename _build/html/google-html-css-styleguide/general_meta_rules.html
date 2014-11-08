@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>整体的元数据规则 &mdash; Google 开源项目风格指南</title>
+    
+    <link rel="stylesheet" href="../_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Google 开源项目风格指南" href="../index.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../index.html">
+          <span>Google 开源项目风格指南</span></a></h1>
+        <h2 class="heading"><span>整体的元数据规则</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        <a class="uplink" href="../contents.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="id1">
+<h1>整体的元数据规则</h1>
+<div class="section" id="id2">
+<h2>编码</h2>
+<p>使用UTF-8无BOM编码。</p>
+<p>让你的编辑器使用无字节顺序标记的UTF-8编码。</p>
+<p>在HTML模板和文档中使用 <tt class="docutils literal"><span class="pre">&lt;meta</span> <span class="pre">charset=”utf-8”&gt;</span></tt> 指定编码。不需要为样式表指定编码，它默认是UTF-8。</p>
+<p>（想了解更多关于应该何时并如何指定编码，请查看 <a class="reference external" href="http://www.w3.org/International/tutorials/tutorial-char-enc/">Handling character encodings in HTML and CSS</a>）</p>
+</div>
+<div class="section" id="id3">
+<h2>注释</h2>
+<p>在需要时尽可能去解释你的代码。</p>
+<p>用注释去解释你的代码，包括它的应用范围、用途、此方案的选择理由等。</p>
+<p>（这一条是可选的，没必要为每个文件写上详细的注释，会增重HTML/CSS的代码，主要取决于项目的复杂度。）</p>
+</div>
+<div class="section" id="id4">
+<h2>处理内容</h2>
+<p>用TODO标记待办事宜和处理内容。</p>
+<p>只用TODO来标记待办事宜，不要使用其他格式，例如&#64;&#64;。</p>
+<p>在括号里添加联系方式（姓名或邮箱），格式为TODO（联系方式）。</p>
+<p>在冒号后面添加处理内容，格式为TODO：处理内容。</p>
+<div class="highlight-html"><div class="highlight"><pre>{# TODO(john.doe): 重新处理水平居中 #}
+<span class="nt">&lt;center&gt;</span>Test<span class="nt">&lt;/center&gt;</span>
+
+<span class="c">&lt;!-- TODO: 移除可选的标签 --&gt;</span>
+<span class="nt">&lt;ul&gt;</span>
+ <span class="nt">&lt;li&gt;</span>Apples<span class="nt">&lt;/li&gt;</span>
+ <span class="nt">&lt;li&gt;</span>Oranges<span class="nt">&lt;/li&gt;</span>
+<span class="nt">&lt;/ul&gt;</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        <a class="uplink" href="../contents.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright .
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

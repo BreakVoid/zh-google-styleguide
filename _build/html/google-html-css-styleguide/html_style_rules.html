@@ -1,0 +1,187 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>HTML样式规则 &mdash; Google 开源项目风格指南</title>
+    
+    <link rel="stylesheet" href="../_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Google 开源项目风格指南" href="../index.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../index.html">
+          <span>Google 开源项目风格指南</span></a></h1>
+        <h2 class="heading"><span>HTML样式规则</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        <a class="uplink" href="../contents.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="html">
+<h1>HTML样式规则</h1>
+<div class="section" id="id1">
+<h2>文档类型</h2>
+<p>使用HTML5。</p>
+<p>HTML5（HTML语法）是所有HTML文档的首选： <tt class="docutils literal"><span class="pre">&lt;!DOCTYPE</span> <span class="pre">html&gt;</span></tt> 。</p>
+<p>（推荐使用HTML，即text/html。不要使用XHTML。XHTML，即 <a class="reference external" href="http://hixie.ch/advocacy/xhtml">application/xhtml+xml</a>，缺乏浏览器和基础结构的支持，并且优化的空间比HTML小。）
+虽然HTML闭合标签没有问题，但是不要自闭合空标签。即写 <tt class="docutils literal"><span class="pre">&lt;br&gt;</span></tt> 而不是 <tt class="docutils literal"><span class="pre">&lt;br</span> <span class="pre">/&gt;</span></tt> 。</p>
+</div>
+<div class="section" id="id2">
+<h2>HTML合法性</h2>
+<p>在可能的情况下使用合法的HTML。</p>
+<p>使用合法的HTML代码，除非由于文件大小导致的不可达到的性能目标而不能使用。</p>
+<p>利用已用工具对合法性进行测试，例如 <a class="reference external" href="http://validator.w3.org/nu/">W3C HTML validator</a>。</p>
+<p>使用合法的HTML是一个可度量的基准质量属性，该属性有助于了解技术需求和约束，从而确保合理的HTML使用。</p>
+<div class="highlight-html"><div class="highlight"><pre><span class="c">&lt;!-- 不推荐 --&gt;</span>
+<span class="nt">&lt;title&gt;</span>Test<span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;article&gt;</span>This is only a test.
+
+<span class="c">&lt;!-- 推荐 --&gt;</span>
+<span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">&quot;utf-8&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;title&gt;</span>Test<span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;article&gt;</span>This is only a test.<span class="nt">&lt;/article&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>语义化</h2>
+<p>根据HTML的目的使用它。</p>
+<p>根据元素（有时被错误的叫做“标签”）被创造的用途使用他们。比如，对标题使用标题元素，对段落使用 <tt class="docutils literal"><span class="pre">p</span></tt> 元素，对锚点使用 <tt class="docutils literal"><span class="pre">a</span></tt> 元素等。</p>
+<p>语义化的使用HTML对于可访问性、复用性和代码的高效性等因素非常重要。</p>
+<div class="highlight-html"><div class="highlight"><pre><span class="c">&lt;!-- 不推荐 --&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">onclick=</span><span class="s">&quot;goToRecommendations();&quot;</span><span class="nt">&gt;</span>All recommendations<span class="nt">&lt;/div&gt;</span>
+
+<span class="c">&lt;!-- 推荐 --&gt;</span>
+<span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;recommendations/&quot;</span><span class="nt">&gt;</span>All recommendations<span class="nt">&lt;/a&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>多媒体降级</h2>
+<p>为多媒体提供替代内容。</p>
+<p>对于图片、视频、通过 <tt class="docutils literal"><span class="pre">canvas</span></tt> 实现的动画等多媒体来说，确保提供可访问的替代内容。对于图片，可提供有意义的替代文本（ <tt class="docutils literal"><span class="pre">alt</span></tt> ）；对于视频和音频，如有条件可提供对白和字幕。</p>
+<p>提供替代内容对辅助功能很重要：没有 <tt class="docutils literal"><span class="pre">alt</span></tt> ，一位盲人用户很难知道一张图片的内容，其他用户可能不能了解视频和音频的内容。
+（对于 <tt class="docutils literal"><span class="pre">alt</span></tt> 属性会引起冗余的图片和你不打算添加CSS的纯粹装饰性的图片，不用添加替代文本，写成 <tt class="docutils literal"><span class="pre">alt=&quot;&quot;</span></tt> 即可。）</p>
+<div class="highlight-html"><div class="highlight"><pre><span class="c">&lt;!-- 不推荐 --&gt;</span>
+<span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">&quot;spreadsheet.png&quot;</span><span class="nt">&gt;</span>
+
+<span class="c">&lt;!-- 推荐 --&gt;</span>
+<span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">&quot;spreadsheet.png&quot;</span> <span class="na">alt=</span><span class="s">&quot;Spreadsheet screenshot.&quot;</span><span class="nt">&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>关注点分离</h2>
+<p>将结构、表现、行为分离。</p>
+<p>严格保持结构（标识），表现（样式），行为（脚本）分离，尽量使三者之间的相互影响最小。</p>
+<p>就是说，确保文档和模板只包含HTML，并且HTML只用来表现结构。把任何表现性的东西都移到样式表，任何行为性的东西都移到脚本中。</p>
+<p>此外，尽可能少的从文档和模板中引用样式表和脚本来减少三者的相互影响。</p>
+<p>结构、表现、行为分离对维护非常重要。更改HTML文档和模板总是比更新样式表和脚本成本更高。</p>
+<div class="highlight-html"><div class="highlight"><pre><span class="c">&lt;!-- 不推荐 --&gt;</span>
+<span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;title&gt;</span>HTML sucks<span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href=</span><span class="s">&quot;base.css&quot;</span> <span class="na">media=</span><span class="s">&quot;screen&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href=</span><span class="s">&quot;grid.css&quot;</span> <span class="na">media=</span><span class="s">&quot;screen&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href=</span><span class="s">&quot;print.css&quot;</span> <span class="na">media=</span><span class="s">&quot;print&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;h1</span> <span class="na">style=</span><span class="s">&quot;font-size: 1em;&quot;</span><span class="nt">&gt;</span>HTML sucks<span class="nt">&lt;/h1&gt;</span>
+<span class="nt">&lt;p&gt;</span>I’ve read about this on a few sites but now I’m sure:
+  <span class="nt">&lt;u&gt;</span>HTML is stupid!!1<span class="nt">&lt;/u&gt;</span>
+<span class="nt">&lt;center&gt;</span>I can’t believe there’s no way to control the styling of
+  my website without doing everything all over again!<span class="nt">&lt;/center&gt;</span>
+
+<span class="c">&lt;!-- 推荐 --&gt;</span>
+<span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;title&gt;</span>My first CSS-only redesign<span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href=</span><span class="s">&quot;default.css&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;h1&gt;</span>My first CSS-only redesign<span class="nt">&lt;/h1&gt;</span>
+<span class="nt">&lt;p&gt;</span>I’ve read about this on a few sites but today I’m actually
+  doing it: separating concerns and avoiding anything in the HTML of
+  my website that is presentational.
+<span class="nt">&lt;p&gt;</span>It’s awesome!
+</pre></div>
+</div>
+</div>
+<div class="section" id="id6">
+<h2>实体引用</h2>
+<p>不要使用实体引用。</p>
+<p>假设文件、编辑器和团队之间使用相同的编码（UTF-8），则没有必要使用例如 <tt class="docutils literal"><span class="pre">&amp;mdash;</span></tt> 、 <tt class="docutils literal"><span class="pre">&amp;rdquo;</span></tt> 或 <tt class="docutils literal"><span class="pre">&amp;#x263a;</span></tt> 这样的实体引用。</p>
+<p>唯一的例外适用于HTML中具有特殊意义的字符（比如&lt;和&amp;），和控制或者隐藏的字符（比如不换行空格）。</p>
+<div class="highlight-html"><div class="highlight"><pre><span class="c">&lt;!-- 不推荐 --&gt;</span>
+The currency symbol for the Euro is <span class="ni">&amp;ldquo;&amp;eur;&amp;rdquo;</span>.
+
+<span class="c">&lt;!-- 推荐 --&gt;</span>
+The currency symbol for the Euro is &quot;€&quot;.
+</pre></div>
+</div>
+</div>
+<div class="section" id="id7">
+<h2>可选的标签</h2>
+<p>省略可选的标签（可选）。</p>
+<p>为了优化文件大小和可扫描，考虑省略可选标签。 <a class="reference external" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/syntax.html#syntax-tag-omission">HTML5规范</a> 定义了哪些标签可以被省略。</p>
+<p>（这种方法可能要求一段宽限期去建立一个更加广泛的准则，因为它和Web开发人员通常所了解的有着显著不同。考虑到一致性和简单性，最好省略所有可选标签。）</p>
+<div class="highlight-html"><div class="highlight"><pre><span class="c">&lt;!-- 不推荐 --&gt;</span>
+<span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+ <span class="nt">&lt;head&gt;</span>
+   <span class="nt">&lt;title&gt;</span>Spending money, spending bytes<span class="nt">&lt;/title&gt;</span>
+ <span class="nt">&lt;/head&gt;</span>
+ <span class="nt">&lt;body&gt;</span>
+   <span class="nt">&lt;p&gt;</span>Sic.<span class="nt">&lt;/p&gt;</span>
+ <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+
+<span class="c">&lt;!-- 推荐 --&gt;</span>
+<span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;title&gt;</span>Saving money, saving bytes<span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;p&gt;</span>Qed.
+</pre></div>
+</div>
+</div>
+<div class="section" id="type">
+<h2>type属性</h2>
+<p>为样式表和脚本省略 <tt class="docutils literal"><span class="pre">type</span></tt> 属性。</p>
+<p>引用样式表（除非不是使用CSS）和脚本（除非不是使用JavaScript）不要使用type属性。</p>
+<p>HTML5将 <a class="reference external" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/semantics.html#attr-style-type">text/css</a> 和 <a class="reference external" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/scripting-1.html#attr-script-type">text/javascript</a> 设置为默认值，在这种情况下指定type属性并不必要。甚至同样兼容老版本的浏览器。</p>
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        <a class="uplink" href="../contents.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright .
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>
